@@ -1,65 +1,39 @@
-# My Portfolio
+# Shathursima Raveendran — Portfolio
 
-Dark, classy ePortfolio for networking · ML · cybersecurity.
-Hosted free on GitHub Pages at `https://ShathuCodes.github.io/portfolio`
+> **Live site →** [shathumcodes.github.io/portfolio](https://ShathuCodes.github.io/portfolio)
 
----
-
-## 🚀 Quick Start
-
-```bash
-npm install
-npm run dev
-# → http://localhost:3000/portfolio
-```
+A personal portfolio built to showcase my work, background, and skills as a second-year Computer Engineering student at the University of Peradeniya.
 
 ---
 
-## ✏️ What to Update (search for TODO comments)
+## 👩‍💻 About Me
 
-| File | What to change |
-|------|---------------|
-| `app/layout.jsx` | Page title & meta |
-| `components/Navbar.jsx` | Your initials |
-| `components/Hero.jsx` | Name, bio, roles, GitHub link |
-| `components/About.jsx` | Your story, stats, terminal text |
-| `components/Skills.jsx` | Your real skills & certs |
-| `components/Projects.jsx` | Your projects & GitHub links |
-| `components/Blog.jsx` | Your articles / writeups |
-| `components/Contact.jsx` | Your email & GitHub link |
-| `components/Footer.jsx` | Your name |
-| `public/resume.pdf` | Drop your CV here |
-
-> LinkedIn is already set to your profile ✅
+I'm a computer engineering undergraduate with hands-on experience in machine learning, systems programming, 3D graphics, and full-stack web development. I also serve as a Casual Instructor for CO1010 (Programming for Engineers) at UoP.
 
 ---
 
-## 🌐 Deploy to GitHub Pages
+## 📂 What's Inside
 
-```bash
-# 1. Create a repo named "portfolio" on GitHub
-# 2. Then run:
-git init
-git add .
-git commit -m "initial portfolio"
-git branch -M main
-git remote add origin https://github.com/yourusername/portfolio.git
-git push -u origin main
-
-# 3. Go to repo Settings → Pages → Source: GitHub Actions
-# 4. Live at: https://yourusername.github.io/portfolio
-```
+| Section | Content |
+|---|---|
+| **Hero** | Name, typewriter role animation, stats snapshot |
+| **About** | My story, background, university role, organisations |
+| **Skills** | Tech stack across AI/ML, systems, web, and tools |
+| **Projects** | SignalMon · Dementia AI · Libtiny3D · Mini Shell |
+| **Experience** | Roles at IEEE WIE, SEDS Pera, AIESEC + volunteering |
+| **Certifications** | Google AI Essentials, Databricks, Python, Java |
+| **Contact** | Email, LinkedIn, GitHub, contact form |
 
 ---
 
-## 📬 Connect Contact Form (Formspree — free)
+## 🛠️ Built With
 
-1. Sign up at https://formspree.io
-2. Create a form → copy your form ID
-3. In `components/Contact.jsx` uncomment the fetch block and replace `YOUR_FORM_ID`
+Next.js 14 · Tailwind CSS · Framer Motion · JetBrains Mono · Outfit · GitHub Actions · GitHub Pages
 
 ---
 
-## 🧰 Stack
+## 📬 Contact
 
-Next.js 14 · Tailwind CSS · Syne font · Outfit font · GitHub Actions · GitHub Pages
+**Email** — shathursimaraveendran04@gmail.com  
+**LinkedIn** — [linkedin.com/in/shathursima-raveendran](https://www.linkedin.com/in/shathursima-raveendran-a53b4729b)  
+**GitHub** — [github.com/ShathuCodes](https://github.com/ShathuCodes)
