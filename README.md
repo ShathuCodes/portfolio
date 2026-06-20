@@ -1,7 +1,7 @@
-# My Portfolio — Next.js + Tailwind CSS
+# My Portfolio
 
 Dark, classy ePortfolio for networking · ML · cybersecurity.
-Hosted free on GitHub Pages at `https://yourusername.github.io/portfolio`
+Hosted free on GitHub Pages at `https://ShathuCodes.github.io/portfolio`
 
 ---
 
