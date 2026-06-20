@@ -56,7 +56,7 @@ export default function Projects() {
         <span className="section-label">What I've Built</span>
         <h2 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(48px, 6vw, 72px)',
+          fontSize: 'clamp(40px, 6vw, 72px)',
           marginBottom: 64, letterSpacing: -1,
         }}>
           FEATURED<br /><span style={{ color: 'var(--accent)' }}>PROJECTS</span>
@@ -69,27 +69,29 @@ export default function Projects() {
               onMouseLeave={() => setHovered(null)}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '80px 1fr auto',
-                gap: 40, alignItems: 'start',
-                padding: '40px 0',
+                gridTemplateColumns: 'clamp(44px, 8vw, 80px) 1fr auto',
+                gap: 'clamp(16px, 3vw, 40px)', alignItems: 'start',
+                padding: hovered === i ? '40px 32px' : '40px 0',
                 borderBottom: '1px solid var(--border)',
                 cursor: 'default',
                 transition: 'all 0.3s',
                 background: hovered === i ? 'var(--surface2)' : 'transparent',
-                padding: hovered === i ? '40px 32px' : '40px 0',
-              }}>
+              }}
+              className="project-row"
+            >
               {/* Number */}
               <div style={{
-                fontFamily: 'var(--font-display)', fontSize: 56,
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(32px, 6vw, 56px)',
                 color: hovered === i ? project.color : 'var(--border)',
                 lineHeight: 1, transition: 'color 0.3s',
               }}>{project.id}</div>
 
               {/* Content */}
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 8 }}>
                   <h3 style={{
-                    fontFamily: 'var(--font-display)', fontSize: 36,
+                    fontFamily: 'var(--font-display)', fontSize: 'clamp(22px, 4vw, 36px)',
                     letterSpacing: -0.5, color: hovered === i ? project.color : 'var(--text)',
                     transition: 'color 0.3s',
                   }}>{project.title}</h3>
@@ -99,6 +101,7 @@ export default function Projects() {
                     padding: '4px 10px',
                     border: `1px solid ${project.color}44`,
                     color: project.color,
+                    whiteSpace: 'nowrap',
                   }}>{project.status}</span>
                 </div>
                 <div style={{
@@ -131,7 +134,7 @@ export default function Projects() {
 
               {/* Arrow */}
               <div style={{
-                fontFamily: 'var(--font-mono)', fontSize: 24,
+                fontFamily: 'var(--font-mono)', fontSize: 'clamp(18px, 3vw, 24px)',
                 color: hovered === i ? project.color : 'var(--border)',
                 transition: 'all 0.3s',
                 transform: hovered === i ? 'translate(5px, -5px)' : 'none',
@@ -141,6 +144,17 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 480px) {
+          .project-row {
+            grid-template-columns: 44px 1fr !important;
+            gap: 12px !important;
+            padding: 28px 0 !important;
+          }
+          .project-row > div:last-child { display: none; }
+        }
+      `}</style>
     </section>
   )
 }

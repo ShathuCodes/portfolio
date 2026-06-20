@@ -26,18 +26,21 @@ export default function About() {
           </div>
         </div>
 
+        {/* 2-column: text | info cards */}
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80,
           alignItems: 'start',
         }} className="about-grid">
-          {/* Left */}
+
+          {/* Left — Text */}
           <div>
             <span className="section-label">About Me</span>
+            {/* Reduced heading: clamp(32px, 4vw, 52px) */}
             <h2 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(48px, 6vw, 80px)',
-              lineHeight: 1, marginBottom: 32,
-              letterSpacing: -1,
+              fontSize: 'clamp(32px, 4vw, 52px)',
+              lineHeight: 1.05, marginBottom: 28,
+              letterSpacing: -0.5,
             }}>
               I BUILD<br />
               <span style={{ color: '#05668d' }}>THINGS</span><br />
@@ -60,7 +63,7 @@ export default function About() {
             </p>
           </div>
 
-          {/* Right - Info cards */}
+          {/* Right — Info cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
               { label: 'University', value: 'University of Peradeniya', sub: 'Computer Engineering — 2nd Year' },

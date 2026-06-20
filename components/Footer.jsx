@@ -6,7 +6,7 @@ export default function Footer() {
       padding: '40px',
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       flexWrap: 'wrap', gap: 16,
-    }}>
+    }} className="site-footer">
       <div style={{
         fontFamily: 'var(--font-display)', fontSize: 24,
         color: 'var(--accent)', letterSpacing: 2,
@@ -19,7 +19,7 @@ export default function Footer() {
         color: 'var(--muted)', letterSpacing: 2, textTransform: 'uppercase',
         textAlign: 'center',
       }}>
-        Built with Next.js & ♥ — {new Date().getFullYear()}
+        Built with Next.js &amp; ♥ — {new Date().getFullYear()}
       </div>
 
       <div style={{
@@ -28,6 +28,16 @@ export default function Footer() {
       }}>
         University of Peradeniya · CE Dept
       </div>
+
+      <style>{`
+        @media (max-width: 480px) {
+          .site-footer {
+            flex-direction: column !important;
+            text-align: center !important;
+            padding: 32px 20px !important;
+          }
+        }
+      `}</style>
     </footer>
   )
 }

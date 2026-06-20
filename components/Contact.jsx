@@ -9,7 +9,6 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Replace with your form handler (Formspree, EmailJS, etc.)
     console.log(form)
     setSent(true)
     setTimeout(() => setSent(false), 3000)
@@ -21,6 +20,9 @@ export default function Contact() {
     background: 'var(--surface2)', border: '1px solid var(--border)',
     color: 'var(--text)', fontFamily: 'var(--font-body)', fontSize: 15,
     outline: 'none', transition: 'border-color 0.3s',
+    borderRadius: 2,
+    // min height for touch targets
+    minHeight: 52,
   }
 
   return (
@@ -30,7 +32,7 @@ export default function Contact() {
         <span className="section-label">Get In Touch</span>
         <h2 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(48px, 6vw, 72px)',
+          fontSize: 'clamp(40px, 6vw, 72px)',
           marginBottom: 16, letterSpacing: -1,
         }}>
           LET'S<br /><span style={{ color: '#7b2cbf' }}>CONNECT</span>
@@ -49,7 +51,9 @@ export default function Contact() {
         }} className="contact-grid">
           {/* Form */}
           <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            {/* Name + Email row — collapses to 1-col at ≤480px via .contact-input-row */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
+              className="contact-input-row">
               <input
                 placeholder="Name"
                 value={form.name}
@@ -81,13 +85,15 @@ export default function Contact() {
               required
             />
             <button type="submit" style={{
-              background: sent ? 'var(--accent)' : 'var(--accent)',
+              background: 'var(--accent)',
               color: 'var(--bg)',
               padding: '16px 48px', border: 'none',
               fontFamily: 'var(--font-mono)', fontSize: 13,
               letterSpacing: 2, textTransform: 'uppercase',
-              fontWeight: 500, cursor: 'none',
+              fontWeight: 500, cursor: 'pointer',
               transition: 'all 0.3s',
+              minHeight: 52, borderRadius: 2,
+              width: '100%',
             }}
               onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 10px 30px rgba(0, 168, 150, 0.2)' }}
               onMouseLeave={e => { e.target.style.transform = 'none'; e.target.style.boxShadow = 'none' }}>
@@ -105,11 +111,12 @@ export default function Contact() {
               ].map(link => (
                 <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
                   style={{
-                    display: 'block', padding: '28px 32px',
+                    display: 'block', padding: '24px 28px',
                     background: 'var(--surface)',
                     textDecoration: 'none',
                     borderLeft: `3px solid transparent`,
                     transition: 'all 0.3s',
+                    minHeight: 80,
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.borderLeftColor = link.color
@@ -126,7 +133,10 @@ export default function Contact() {
                     color: link.color, letterSpacing: 3,
                     textTransform: 'uppercase', marginBottom: 6,
                   }}>{link.label}</div>
-                  <div style={{ color: 'var(--text)', fontSize: 15 }}>{link.value}</div>
+                  <div style={{
+                    color: 'var(--text)', fontSize: 14,
+                    wordBreak: 'break-all',
+                  }}>{link.value}</div>
                 </a>
               ))}
             </div>
@@ -150,6 +160,9 @@ export default function Contact() {
       <style>{`
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+        @media (max-width: 480px) {
+          .contact-input-row { grid-template-columns: 1fr !important; }
         }
       `}</style>
       <Footer />
