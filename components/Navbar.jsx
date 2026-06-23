@@ -3,8 +3,60 @@ import { useState, useEffect } from 'react'
 
 const links = ['About', 'Skills', 'Projects', 'Experience', 'Certifications', 'Contact']
 
+function ThemeToggle({ isDark, onToggle }) {
+  return (
+    <button
+      onClick={onToggle}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      style={{
+        background: 'var(--surface2)',
+        border: '1px solid var(--border)',
+        borderRadius: '50%',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 36,
+        height: 36,
+        transition: 'all 0.3s ease',
+        flexShrink: 0,
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'var(--accent)'
+        e.currentTarget.style.boxShadow = '0 0 12px rgba(0, 168, 150, 0.3)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = 'var(--border)'
+        e.currentTarget.style.boxShadow = 'none'
+      }}
+    >
+      <span style={{ fontSize: 16, transition: 'transform 0.4s ease', display: 'block' }}>
+        {isDark ? '☀️' : '🌙'}
+      </span>
+    </button>
+  )
+}
+
 export default function Navbar({ activeSection }) {
   const [open, setOpen] = useState(false)
+  const [isDark, setIsDark] = useState(true)
+
+  // Load saved theme on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const dark = saved ? saved === 'dark' : prefersDark
+    setIsDark(dark)
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+  }, [])
+
+  const toggleTheme = () => {
+    const next = !isDark
+    setIsDark(next)
+    document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light')
+    localStorage.setItem('theme', next ? 'dark' : 'light')
+  }
 
   // Close drawer on Escape key
   useEffect(() => {
@@ -64,7 +116,7 @@ export default function Navbar({ activeSection }) {
         </a>
 
         {/* Desktop Links */}
-        <div style={{ display: 'flex', gap: 'clamp(20px, 3vw, 48px)', alignItems: 'center' }}
+        <div style={{ display: 'flex', gap: 'clamp(16px, 2.5vw, 40px)', alignItems: 'center' }}
           className="desktop-nav">
           {links.map(link => {
             const isActive = activeSection === link.toLowerCase()
@@ -93,6 +145,8 @@ export default function Navbar({ activeSection }) {
             )
           })}
 
+          <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
+
           <a href="#contact" style={{
             fontFamily: 'var(--font-mono)', fontSize: 10,
             letterSpacing: 2, textTransform: 'uppercase',
@@ -117,35 +171,38 @@ export default function Navbar({ activeSection }) {
         </div>
 
         {/* Mobile Toggle — accessible, large touch target */}
-        <button
-          onClick={() => setOpen(!open)}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          style={{
-            display: 'none', background: 'none', border: 'none',
-            cursor: 'pointer', zIndex: 1001,
-            padding: '12px', margin: '-12px',  // expand tap area
-            minWidth: 48, minHeight: 48,
-            alignItems: 'center', justifyContent: 'center',
-          }}
-          className="mobile-toggle"
-        >
-          <div style={{
-            width: 24, height: 2, background: 'var(--text)',
-            marginBottom: 6, transition: '0.3s',
-            transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none'
-          }} />
-          <div style={{
-            width: 24, height: 2, background: 'var(--text)',
-            transition: '0.3s',
-            opacity: open ? 0 : 1
-          }} />
-          <div style={{
-            width: 24, height: 2, background: 'var(--text)',
-            marginTop: 6, transition: '0.3s',
-            transform: open ? 'rotate(-45deg) translate(6px, -7px)' : 'none'
-          }} />
-        </button>
+        <div style={{ display: 'none', alignItems: 'center', gap: 12 }} className="mobile-controls">
+          <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            style={{
+              background: 'none', border: 'none',
+              cursor: 'pointer', zIndex: 1001,
+              padding: '12px', margin: '-12px',
+              minWidth: 48, minHeight: 48,
+              display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            <div style={{
+              width: 24, height: 2, background: 'var(--text)',
+              marginBottom: 6, transition: '0.3s',
+              transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none'
+            }} />
+            <div style={{
+              width: 24, height: 2, background: 'var(--text)',
+              transition: '0.3s',
+              opacity: open ? 0 : 1
+            }} />
+            <div style={{
+              width: 24, height: 2, background: 'var(--text)',
+              marginTop: 6, transition: '0.3s',
+              transform: open ? 'rotate(-45deg) translate(6px, -7px)' : 'none'
+            }} />
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Drawer */}
@@ -199,12 +256,12 @@ export default function Navbar({ activeSection }) {
         /* Desktop nav visible above 768px, hamburger hidden */
         @media (min-width: 769px) {
           .desktop-nav { display: flex !important; }
-          .mobile-toggle { display: none !important; }
+          .mobile-controls { display: none !important; }
         }
         /* Mobile: hide desktop nav, show hamburger */
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .mobile-toggle { display: flex !important; }
+          .mobile-controls { display: flex !important; }
         }
       `}</style>
     </>

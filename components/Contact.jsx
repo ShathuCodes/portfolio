@@ -1,18 +1,74 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 import ParticleBackground from './ParticleBackground'
 import Footer from './Footer'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const captchaRef = useRef(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(form)
-    setSent(true)
-    setTimeout(() => setSent(false), 3000)
-    setForm({ name: '', email: '', message: '' })
+    setStatus('sending')
+    setErrorMsg('')
+
+    if (captchaRef.current) {
+      captchaRef.current.execute()
+    } else {
+      setStatus('error')
+      setErrorMsg('Captcha is not loaded yet. Please wait a moment and try again.')
+    }
+  }
+
+  const onVerifyCaptcha = async (token) => {
+    const formData = new FormData()
+    formData.append('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_KEY || '')
+    formData.append('name', form.name)
+    formData.append('email', form.email)
+    formData.append('message', form.message)
+    formData.append('subject', `Portfolio Contact from ${form.name}`)
+    formData.append('from_name', 'Portfolio Contact Form')
+    formData.append('h-captcha-response', token)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await res.json()
+
+      if (res.ok && data.success) {
+        setStatus('success')
+        setForm({ name: '', email: '', message: '' })
+        captchaRef.current.resetCaptcha()
+        setTimeout(() => setStatus('idle'), 5000)
+      } else {
+        setStatus('error')
+        setErrorMsg(data.message || 'Something went wrong. Please try again.')
+        captchaRef.current.resetCaptcha()
+      }
+    } catch (error) {
+      console.error(error)
+      setStatus('error')
+      setErrorMsg('Network error — please check your connection and try again.')
+      captchaRef.current.resetCaptcha()
+    }
+  }
+
+  const onCaptchaError = (err) => {
+    console.error('Captcha error:', err)
+    setStatus('error')
+    setErrorMsg('Captcha verification failed or expired. Please try again.')
+    captchaRef.current.resetCaptcha()
+  }
+
+  const onCaptchaClose = () => {
+    // If the user closes the captcha challenge manually
+    setStatus('idle')
   }
 
   const inputStyle = {
@@ -21,7 +77,6 @@ export default function Contact() {
     color: 'var(--text)', fontFamily: 'var(--font-body)', fontSize: 15,
     outline: 'none', transition: 'border-color 0.3s',
     borderRadius: 2,
-    // min height for touch targets
     minHeight: 52,
   }
 
@@ -49,11 +104,18 @@ export default function Contact() {
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80,
         }} className="contact-grid">
-          {/* Form */}
+
           <form onSubmit={handleSubmit}>
-            {/* Name + Email row — collapses to 1-col at ≤480px via .contact-input-row */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
-              className="contact-input-row">
+            <input
+              type="checkbox"
+              name="botcheck"
+              style={{ display: 'none' }}
+              tabIndex="-1"
+              autoComplete="off"
+            />
+            <input type="hidden" name="subject" value="Portfolio Contact Form" />
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="contact-input-row">
               <input
                 placeholder="Name"
                 value={form.name}
@@ -62,6 +124,7 @@ export default function Contact() {
                 onFocus={e => e.target.style.borderColor = 'var(--accent)'}
                 onBlur={e => e.target.style.borderColor = 'var(--border)'}
                 required
+                disabled={status === 'sending'}
               />
               <input
                 placeholder="Email"
@@ -72,8 +135,10 @@ export default function Contact() {
                 onFocus={e => e.target.style.borderColor = 'var(--accent)'}
                 onBlur={e => e.target.style.borderColor = 'var(--border)'}
                 required
+                disabled={status === 'sending'}
               />
             </div>
+
             <textarea
               placeholder="Your message..."
               rows={6}
@@ -83,25 +148,75 @@ export default function Contact() {
               onFocus={e => e.target.style.borderColor = 'var(--accent)'}
               onBlur={e => e.target.style.borderColor = 'var(--border)'}
               required
+              disabled={status === 'sending'}
             />
-            <button type="submit" style={{
-              background: 'var(--accent)',
-              color: 'var(--bg)',
-              padding: '16px 48px', border: 'none',
-              fontFamily: 'var(--font-mono)', fontSize: 13,
-              letterSpacing: 2, textTransform: 'uppercase',
-              fontWeight: 500, cursor: 'pointer',
-              transition: 'all 0.3s',
-              minHeight: 52, borderRadius: 2,
-              width: '100%',
-            }}
-              onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 10px 30px rgba(0, 168, 150, 0.2)' }}
-              onMouseLeave={e => { e.target.style.transform = 'none'; e.target.style.boxShadow = 'none' }}>
-              {sent ? '✓ Message Sent!' : 'Send Message →'}
+
+            <div style={{ marginBottom: 16 }}>
+              <HCaptcha
+                ref={captchaRef}
+                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || '10000000-ffff-ffff-ffff-000000000001'}
+                size="invisible"
+                theme="dark"
+                onVerify={onVerifyCaptcha}
+                onError={onCaptchaError}
+                onClose={onCaptchaClose}
+              />
+            </div>
+
+            {status === 'error' && (
+              <div style={{
+                background: 'rgba(220, 38, 38, 0.1)',
+                border: '1px solid rgba(220, 38, 38, 0.3)',
+                borderRadius: 4,
+                padding: '12px 16px',
+                marginBottom: 16,
+                fontFamily: 'var(--font-mono)', fontSize: 12,
+                color: '#f87171',
+              }}>
+                ⚠ {errorMsg}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === 'sending' || status === 'success'}
+              style={{
+                background: status === 'success' ? '#02c39a' : 'var(--accent)',
+                color: 'var(--bg)',
+                padding: '16px 48px', border: 'none',
+                fontFamily: 'var(--font-mono)', fontSize: 13,
+                letterSpacing: 2, textTransform: 'uppercase',
+                fontWeight: 500,
+                cursor: (status === 'sending' || status === 'success') ? 'not-allowed' : 'pointer',
+                transition: 'all 0.3s',
+                minHeight: 52, borderRadius: 2,
+                width: '100%',
+                opacity: status === 'sending' ? 0.7 : 1,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              }}
+              onMouseEnter={e => {
+                if (status === 'idle' || status === 'error') {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 168, 150, 0.2)'
+                }
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'none'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              {status === 'sending' && (
+                <span style={{
+                  width: 14, height: 14, border: '2px solid transparent',
+                  borderTopColor: 'var(--bg)', borderRadius: '50%',
+                  display: 'inline-block',
+                  animation: 'spin 0.7s linear infinite',
+                }} />
+              )}
+              {status === 'sending' ? 'Sending...' : status === 'success' ? '✓ Message Sent!' : 'Send Message →'}
             </button>
           </form>
 
-          {/* Links */}
           <div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {[
@@ -141,16 +256,16 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Location */}
             <div style={{
-              marginTop: 32, padding: '24px',
-              border: '1px solid var(--border)',
+              marginTop: 32, padding: '24px 28px',
+              background: 'var(--surface)',
+              borderLeft: '3px solid transparent',
               fontFamily: 'var(--font-mono)', fontSize: 12,
             }}>
               <div style={{ color: 'var(--muted)', letterSpacing: 2, marginBottom: 4 }}>BASED IN</div>
               <div style={{ color: 'var(--text)', fontSize: 16 }}>Peradeniya, Sri Lanka 🇱🇰</div>
               <div style={{ color: 'var(--accent)', marginTop: 8 }}>
-                🟢 Open to remote & on-site opportunities
+                🟢 Open to remote &amp; on-site opportunities
               </div>
             </div>
           </div>
@@ -158,6 +273,7 @@ export default function Contact() {
       </div>
 
       <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         }
