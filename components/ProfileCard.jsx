@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useCallback } from 'react'
+import profileImg from '../public/profile.jpeg'
 
 export default function ProfileCard() {
   const cardRef = useRef(null)
@@ -74,9 +75,9 @@ export default function ProfileCard() {
           zIndex: 3,
         }} />
 
-        {/* Profile image — using plain img to avoid Next.js Image fill issues */}
+        {/* Profile image — statically imported to fix Next.js basePath issues on GitHub Pages */}
         <img
-          src="/profile.jpeg"
+          src={profileImg.src}
           alt="Shathursima Raveendran"
           style={{
             width: '100%',

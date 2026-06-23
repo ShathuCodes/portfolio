@@ -25,7 +25,7 @@ export default function Contact() {
 
   const onVerifyCaptcha = async (token) => {
     const formData = new FormData()
-    formData.append('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_KEY || '')
+    formData.append('access_key', '2da10ac9-e0fb-4728-ba0a-1011f43bc5f1')
     formData.append('name', form.name)
     formData.append('email', form.email)
     formData.append('message', form.message)
@@ -154,7 +154,7 @@ export default function Contact() {
             <div style={{ marginBottom: 16 }}>
               <HCaptcha
                 ref={captchaRef}
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || '10000000-ffff-ffff-ffff-000000000001'}
+                sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                 size="invisible"
                 theme="dark"
                 onVerify={onVerifyCaptcha}
