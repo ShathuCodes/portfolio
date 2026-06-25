@@ -77,8 +77,8 @@ export default function About() {
                 padding: '20px 24px',
                 transition: 'border-color 0.3s',
               }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = '#05668d'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
+                onMouseEnter={e => e.currentTarget.style.borderColor = '#05668d'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
                 <div style={{
                   fontFamily: 'var(--font-mono)', fontSize: 10,
                   color: '#05668d', letterSpacing: 3,

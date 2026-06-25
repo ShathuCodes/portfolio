@@ -10,7 +10,7 @@ const certs = [
     date: 'Oct 2025',
     color: '#02c39a',
     icon: '🤖',
-    image: '/certificates/google_ai_essentials.jpg',
+    image: './certificates/google_ai_essentials.jpg',
     type: 'Certificate',
   },
   {
@@ -19,7 +19,7 @@ const certs = [
     date: '2025',
     color: '#00a896',
     icon: '⚡',
-    image: '/certificates/databricks.jpg',
+    image: './certificates/databricks.jpg',
 
     type: 'Certificate',
   },
@@ -29,7 +29,7 @@ const certs = [
     date: 'Jun 2024',
     color: '#05668d',
     icon: '🐍',
-    image: '/certificates/introduction_to_python.jpg',
+    image: './certificates/introduction_to_python.jpg',
 
     type: 'Certificate',
   },
@@ -39,7 +39,7 @@ const certs = [
     date: 'Nov 2024',
     color: '#5a189a',
     icon: '☕',
-    image: '/certificates/java_programming.jpg',
+    image: './certificates/java_programming.jpg',
 
     type: 'Certificate',
   },
@@ -49,7 +49,7 @@ const certs = [
     date: '2024',
     color: '#02c39a',
     icon: '📘',
-    image: '/certificates/python_for_beginners.jpg',
+    image: './certificates/python_for_beginners.jpg',
 
     type: 'Course',
   },
