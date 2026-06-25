@@ -34,7 +34,7 @@ export default function Footer() {
             fontFamily: 'var(--font-mono)', fontSize: 13,
             color: 'var(--text)', marginLeft: 8,
           }}>
-            📞 +94 7X XXX XXXX
+            📞 +94 74 276 4543
           </div>
         </div>
       </div>

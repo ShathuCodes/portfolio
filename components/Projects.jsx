@@ -15,7 +15,7 @@ const projects = [
     status: 'Featured',
     github: 'https://github.com/DakshayaniRamanesh/news_SIGNALS',
     demo: null,
-    images: ['/projects/signal mon/pic1.jpg', '/projects/signal mon/pic2.jpg', '/projects/signal mon/pic3.jpg', '/projects/signal mon/pic4.jpg', '/projects/signal mon/pic5.jpg', '/projects/signal mon/pic6.jpg', '/projects/signal mon/pic7.jpg', '/projects/signal mon/pic8.jpg'],
+    images: ['/projects/signalmon/pic1.jpg', '/projects/signalmon/pic2.jpg', '/projects/signalmon/pic3.jpg', '/projects/signalmon/pic4.jpg', '/projects/signalmon/pic5.jpg', '/projects/signalmon/pic6.jpg', '/projects/signalmon/pic7.jpg', '/projects/signalmon/pic8.jpg'],
   },
   {
     id: '02',
@@ -68,7 +68,7 @@ const projects = [
     color: '#1581bbff',
     status: 'Academic',
     demo: null,
-    images: ['/projects/line following robot/pic.jpg'],
+    images: ['/projects/line-following-robot/pic.jpg'],
   },
 ]
 

@@ -39,7 +39,7 @@ const certs = [
     date: 'Nov 2024',
     color: '#5a189a',
     icon: '☕',
-    image: '/certificates/java programming.jpg',
+    image: '/certificates/java_programming.jpg',
 
     type: 'Certificate',
   },
@@ -271,15 +271,15 @@ export default function Certifications() {
               >
                 ×
               </button>
-              
+
               <div style={{
                 flexGrow: 1, overflow: 'hidden', borderRadius: '4px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 background: 'var(--surface2)', minHeight: '300px'
               }}>
                 {selectedCert.image ? (
-                  <img 
-                    src={selectedCert.image} 
+                  <img
+                    src={selectedCert.image}
                     alt={selectedCert.title}
                     style={{
                       width: '100%', height: '100%',
@@ -291,7 +291,7 @@ export default function Certifications() {
                   <div style={{ fontSize: 64 }}>{selectedCert.icon}</div>
                 )}
               </div>
-              
+
               <div style={{
                 padding: '20px 16px 12px',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -304,9 +304,9 @@ export default function Certifications() {
                   </div>
                 </div>
                 {selectedCert.url && (
-                  <a 
-                    href={selectedCert.url} 
-                    target="_blank" 
+                  <a
+                    href={selectedCert.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     style={{
                       padding: '8px 16px', background: `${selectedCert.color}15`,
