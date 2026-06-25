@@ -256,18 +256,7 @@ export default function Contact() {
               ))}
             </div>
 
-            <div style={{
-              marginTop: 32, padding: '24px 28px',
-              background: 'var(--surface)',
-              borderLeft: '3px solid transparent',
-              fontFamily: 'var(--font-mono)', fontSize: 12,
-            }}>
-              <div style={{ color: 'var(--muted)', letterSpacing: 2, marginBottom: 4 }}>BASED IN</div>
-              <div style={{ color: 'var(--text)', fontSize: 16 }}>Peradeniya, Sri Lanka 🇱🇰</div>
-              <div style={{ color: 'var(--accent)', marginTop: 8 }}>
-                🟢 Open to remote &amp; on-site opportunities
-              </div>
-            </div>
+            {/* removed based in section */}
           </div>
         </div>
       </div>

@@ -47,7 +47,7 @@ export default function Footer() {
           fontFamily: 'var(--font-mono)', fontSize: 11,
           color: 'var(--muted)', letterSpacing: 2, textTransform: 'uppercase',
         }}>
-          Built with Next.js &amp; ♥ — {new Date().getFullYear()}
+          © {new Date().getFullYear()}
         </div>
 
         <div style={{

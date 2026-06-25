@@ -4,22 +4,22 @@ const skillGroups = [
   {
     category: 'AI / Machine Learning',
     color: '#02c39a', // Light Teal
-    skills: ['Python', 'NumPy', 'Machine Learning', 'NLP (spaCy)', 'Sentence-BERT', 'K-Means Clustering', 'Sentiment Analysis (VADER)', 'Databricks', 'Logistic Regression'],
+    skills: ['Python', 'NumPy', 'Machine Learning', 'NLP (spaCy)', 'K-Means Clustering', 'Logistic Regression'],
   },
   {
     category: 'Systems & Low-Level',
     color: '#00a896', // Mid Teal
-    skills: ['C', 'ARM32 Assembly', '3D Graphics (Software)', 'Linear Algebra', 'Memory Management', 'System Calls', 'Makefile'],
+    skills: ['C', 'ARM32 Assembly', 'Linear Algebra', 'Makefile'],
   },
   {
     category: 'Web Development',
     color: '#05668d', // Deep Blue
-    skills: ['Next.js', 'React', 'JavaScript', 'HTML & CSS', 'Flask', 'Docker', 'PHP', 'Tailwind CSS'],
+    skills: ['Next.js', 'React', 'JavaScript', 'HTML & CSS', 'Flask', 'Docker', 'Tailwind CSS'],
   },
   {
     category: 'Tools & Other',
     color: '#3c096c', // Dark Purple
-    skills: ['Git & GitHub', 'Canva', 'Arduino', 'Adobe Photoshop', 'Visual Basic .NET', 'Microsoft Office Suite', 'Content Writing'],
+    skills: ['Git & GitHub', 'Canva', 'Arduino', 'Adobe Photoshop', 'Microsoft Office Suite'],
   },
 ]
 
@@ -49,8 +49,8 @@ export default function Skills() {
               borderLeft: `3px solid ${group.color}`,
               transition: 'background 0.3s',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--surface2)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--surface)'}>
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--surface2)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--surface)'}>
               <h3 style={{
                 fontFamily: 'var(--font-mono)', fontSize: 12,
                 letterSpacing: 3, textTransform: 'uppercase',
@@ -69,14 +69,14 @@ export default function Skills() {
                     transition: 'all 0.2s',
                     display: 'inline-block',
                   }}
-                  onMouseEnter={e => {
-                    e.target.style.background = group.color
-                    e.target.style.color = 'var(--bg)'
-                  }}
-                  onMouseLeave={e => {
-                    e.target.style.background = `${group.color}10`
-                    e.target.style.color = 'var(--text)'
-                  }}>
+                    onMouseEnter={e => {
+                      e.target.style.background = group.color
+                      e.target.style.color = 'var(--bg)'
+                    }}
+                    onMouseLeave={e => {
+                      e.target.style.background = `${group.color}10`
+                      e.target.style.color = 'var(--text)'
+                    }}>
                     {skill}
                   </span>
                 ))}

@@ -182,7 +182,7 @@ export default function Navbar({ activeSection }) {
               cursor: 'pointer', zIndex: 1001,
               padding: '12px', margin: '-12px',
               minWidth: 48, minHeight: 48,
-              display: 'flex',
+              display: 'flex', flexDirection: 'column',
               alignItems: 'center', justifyContent: 'center',
             }}
           >
@@ -208,7 +208,7 @@ export default function Navbar({ activeSection }) {
       {/* Mobile Drawer */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 999,
-        background: 'rgba(1, 13, 17, 0.97)',
+        background: 'var(--bg)',
         backdropFilter: 'blur(20px)',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
